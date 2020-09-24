@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>추천음식</div>
+    {%for i in food%}
+        {{i}}
+    {%endfor%}
+    <div>음식별 이미지</div>
+    {%for i in img%}
+        {{i}}
+    {%endfor%}
+    <div>추천음식링크</div>
+    {%for i in link%}
+        {{i}}
+    {%endfor%}
+    
+    <form action="{% url 'cook'%}" method="POST">
+        {% csrf_token %}
+        <input type='text' placeholder='안주를 입력해주세요' name='input_cook'/>
+        <br/>
+        <button type='submit'>확인</button>
+    </form>
+    
+</body>
+</html>

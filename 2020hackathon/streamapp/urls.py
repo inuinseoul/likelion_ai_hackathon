@@ -10,4 +10,5 @@ urlpatterns = [
     path("poker_start", views.poker_start, name="poker_start"),
     path("poker_open", views.poker_open, name="poker_open"),
     path("han_onoff", views.han_onoff, name="han_onoff"),
+    path('cook',views.cook, name='cook'),
 ]
