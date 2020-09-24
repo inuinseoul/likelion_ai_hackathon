@@ -1,0 +1,124 @@
+* {
+    font-family: "Noto Sans KR", sans-serif !important;
+}
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+
+#main {
+    width: 100%;
+    height: 100%;
+}
+
+
+#header {
+    width: 100%;
+    background-color: #303030;
+}
+#header > img {
+    width: 100%;
+}
+
+
+#article {
+    width: 100%;
+
+    margin: 0px;
+    background-color: #303030;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+#beautifultext {
+    width: 65%;
+    
+    margin-top: 0%;
+    margin-bottom: 3%;
+}
+
+#contents_webcam {
+    width: 1205px;
+
+    margin: 0px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+#webcam {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#webcam > div:first-child {
+    height: 605px;
+    background-color: #404040;
+}
+
+#game {
+    width: 1205px;
+    height: 50px;
+    margin-top: 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #553c3c;
+}
+#game > div {
+    width: 13%;
+    text-align: center;
+}
+#game > div > a {
+    font-size: 25px;
+    font-weight: 600;
+    width: 150px;
+    color: #dbbaba;
+
+    text-decoration: none;
+}
+#game > div > a:hover { color: white;text-decoration: none; }
+#game > div > a:link { text-decoration: none; }
+#game > div > a:visited { text-decoration: none; }
+
+
+#footer {
+    width: 100%;
+    height: 40%;
+
+    background-color: #303030;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#footer > a {
+    margin-top: 5%;
+    width: 20%;
+}
+#button {
+    width: 100%;
+}
+
+.large {
+    width: 800px;
+}
+.small {
+    width: 400px;
+}
