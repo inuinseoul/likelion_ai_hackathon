@@ -135,7 +135,7 @@ class ClassifyMove(object):
         # 결과에 따라 label, color 설정
         max_index = np.argmax(np.array(preds))
         label = labels[max_index]
-        if preds[max_index] < 0.9:
+        if preds[max_index] < 0.98:
             label = "basic"
         color = (0, 255, 0)
 
