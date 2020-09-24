@@ -194,12 +194,6 @@ class ClassifyMove(object):
                 state=4,
             )
 
-        # 최종 라벨 결정
-        label = "{}: {:.2f}%".format(label, max(basic, cheers, drink, heart) * 100)
-
-        # 웹캠 위에 텍스트(label) 출력되도록 설정
-        cv2.putText(frame, label, (0, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
-
         # 결과 반환
         ret, jpeg = cv2.imencode(".jpg", frame)
 
