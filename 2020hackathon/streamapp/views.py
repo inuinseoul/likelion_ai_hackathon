@@ -2,7 +2,7 @@ from django.http import request
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http.response import StreamingHttpResponse
-from streamapp.camera import ClassifyMove, IPWebCam
+from streamapp.camera import ClassifyMove, IPWebCam, han_ClassifyMove
 from .models import Test
 import random
 
@@ -41,6 +41,18 @@ def poker_open(request):
     return JsonResponse({}, status=204)
 
 
+def han_onoff(request):
+    if Test.objects.get(pk=13).state:
+        Test.objects.filter(pk=13).update(
+            state=0,
+        )
+    else:
+        Test.objects.filter(pk=13).update(
+            state=1,
+        )
+    return JsonResponse({}, status=204)
+
+
 def index(request):
     if not (Test.objects.filter(pk=1)):
         Test.objects.create(
@@ -72,6 +84,36 @@ def index(request):
             state=0,
         )
         # 내 카드 공개여부
+    if not (Test.objects.filter(pk=8)):
+        Test.objects.create(
+            state=0,
+        )
+        # 한가인기본
+    if not (Test.objects.filter(pk=9)):
+        Test.objects.create(
+            state=0,
+        )
+        # 한가인 짠
+    if not (Test.objects.filter(pk=10)):
+        Test.objects.create(
+            state=0,
+        )
+        # 한가인 마신다
+    if not (Test.objects.filter(pk=11)):
+        Test.objects.create(
+            state=0,
+        )
+        # 한가인 하트
+    if not (Test.objects.filter(pk=12)):
+        Test.objects.create(
+            state=0,
+        )
+        # 사용자 상태
+    if not (Test.objects.filter(pk=13)):
+        Test.objects.create(
+            state=0,
+        )
+        # 한가인켜기끄기
     return render(request, "streamapp/home.html")
 
 
@@ -90,4 +132,11 @@ def webcam_feed(request):
 def camera_feed(request):
     return StreamingHttpResponse(
         gen(ClassifyMove()), content_type="multipart/x-mixed-replace; boundary=frame"
+    )
+
+
+def han_camera_feed(request):
+    return StreamingHttpResponse(
+        gen(han_ClassifyMove()),
+        content_type="multipart/x-mixed-replace; boundary=frame",
     )

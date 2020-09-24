@@ -11,41 +11,39 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel='stylesheet' type='text/css'>
 </head>
 <body>
-    
     <div id="main">
 
         <div id="header">
-            <img src="{% static 'main.png' %}" alt='혼팅포차'/>
+            <img src="{% static 'main2.png' %}" alt='혼팅포차'/>
         </div>
 
         <div id="article">
-            <table>
-                <tr id='me'>
-                    <td rowspan="2"><img class='large' src="{% url 'camera_feed' %}" alt='내 화상 캠'/></td>
-                    <td><img class='small' src='{% static 'wait.png' %}' alt='입장 대기중'/></td>
-                </tr>
-                <tr>
-                    <td><img class='small' src='{% url 'webcam_feed' %}' alt='입장 대기중'/></td>
-                </tr>
-              </table>
-            <!-- <div id="webcam_container">
-                <div>
-                    <img src='./wait_large.png' alt='내 화상 캠'/>
-                </div>
+            <img id='beautifultext' src="{% static 'beautifultext.png' %}" />
 
-                <div>
-                    <div>
-                        <img src='wait.png' alt='입장 대기중'/>
+            <div id="contents_webcam">
+                
+                <div id="webcam">
+                    <div class='large'>
+                        <img class='large' src="{% url 'camera_feed' %}" alt='내 화상 캠'/>
                     </div>
-                    <div>
-                        <img src='wait.png' alt='입장 대기중'/>
+                    <div class='small'>
+                        <img class='small' src="{% url 'han_camera_feed' %}" alt='입장 대기중'/>
+                        <img class='small' src="{% url 'webcam_feed' %}" alt='입장 대기중'/>
                     </div>
                 </div>
-            </div> -->
+                
+                <div id="game">
+                    <div><a href={% url 'poker_start' %}>인디언 포커</a></div>
+                    <div><a href={% url 'poker_open' %}>카드 공개</a></div>
+                    <div><a href={% url 'han_onoff' %}>한가인</a></div>
+                </div>
+            </div>
         </div>
-        <a href={% url 'poker_start' %}>인디언포커</a>
-        <a href={% url 'poker_open' %}>본인 카드공개</a>
+        <div id="footer">
+            <a href='#' target="_blank"><img id='button' src="{% static 'button.png' %}"/></a>
+        </div>
 
     </div>
+
 </body>
 </html>
