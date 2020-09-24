@@ -3,13 +3,37 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from imutils.video import VideoStream
 import imutils
-import cv2, os
+import cv2, os, urllib
 import numpy as np
 from .models import Test
-import random
 
 modelPath = os.path.join(os.getcwd(), "models", "keras_model.h5")
 myNet = load_model(modelPath)
+
+
+class IPWebCam(object):
+    def __init__(self):
+        self.url = "http://192.168.35.193:8080/shot.jpg"
+
+    def __del__(self):
+        cv2.destroyAllWindows()
+
+    def get_frame(self):
+        imgResp = urllib.request.urlopen(self.url)
+        imgNp = np.array(bytearray(imgResp.read()), dtype=np.uint8)
+        img = cv2.imdecode(imgNp, -1)
+
+        resize = cv2.resize(img, (800, 600), interpolation=cv2.INTER_LINEAR)
+        frame_flip = cv2.flip(resize, 1)
+
+        if Test.objects.get(pk=5).state:
+            imgPath = f"C:/img/cards/card ({Test.objects.get(pk=5).state}).png"
+            imgMustache = cv2.imread(imgPath)
+            img2_resized = cv2.resize(imgMustache, (800, 600))
+            frame_flip = cv2.bitwise_and(img2_resized, frame_flip)
+
+        ret, jpeg = cv2.imencode(".jpg", frame_flip)
+        return jpeg.tobytes()
 
 
 class ClassifyMove(object):
@@ -58,6 +82,17 @@ class ClassifyMove(object):
             label = "basic"
         color = (0, 255, 0)
 
+        if Test.objects.get(pk=6).state:
+            if Test.objects.get(pk=7).state:
+                imgPath = f"C:/img/cards/card ({Test.objects.get(pk=6).state}).png"
+                imgMustache = cv2.imread(imgPath)
+                img2_resized = cv2.resize(imgMustache, (800, 600))
+                frame = cv2.bitwise_and(img2_resized, frame)
+            else:
+                imgPath = f"C:/img/cards/card (14).png"
+                imgMustache = cv2.imread(imgPath)
+                img2_resized = cv2.resize(imgMustache, (800, 600))
+                frame = cv2.bitwise_and(img2_resized, frame)
         if label == "basic":
             Test.objects.filter(pk=1).update(
                 state=0,
@@ -67,7 +102,7 @@ class ClassifyMove(object):
             Test.objects.filter(pk=2).update(
                 state=((int(state) + 1) % 70),
             )
-            imgPath = f"C:/img/heart ({(int(state)+1) % 70}).png"
+            imgPath = f"C:/img/cheers/cheers ({(int(state)+1) % 11}).png"
             imgMustache = cv2.imread(imgPath)
             img2_resized = cv2.resize(imgMustache, (800, 600))
             frame = cv2.bitwise_and(img2_resized, frame)
@@ -76,7 +111,7 @@ class ClassifyMove(object):
             Test.objects.filter(pk=3).update(
                 state=((int(state) + 1) % 70),
             )
-            imgPath = f"C:/img/heart ({(int(state)+1) % 70}).png"
+            imgPath = f"C:/img/drink/drink ({(int(state)+1) % 125}).png"
             imgMustache = cv2.imread(imgPath)
             img2_resized = cv2.resize(imgMustache, (800, 600))
             frame = cv2.bitwise_and(img2_resized, frame)
@@ -85,7 +120,7 @@ class ClassifyMove(object):
             Test.objects.filter(pk=4).update(
                 state=((int(state) + 1) % 70),
             )
-            imgPath = f"C:/img/heart ({(int(state)+1) % 70}).png"
+            imgPath = f"C:/img/heart/heart ({(int(state)+1) % 68}).png"
             imgMustache = cv2.imread(imgPath)
             img2_resized = cv2.resize(imgMustache, (800, 600))
             frame = cv2.bitwise_and(img2_resized, frame)

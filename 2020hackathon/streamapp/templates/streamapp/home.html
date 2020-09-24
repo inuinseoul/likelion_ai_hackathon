@@ -1,9 +1,51 @@
-<html>
-  <head>
-    <title>Video Live Stream</title>
-  </head>
-  <body>
-    <h1>Video Live Stream</h1>
-    <img src="{% url 'camera_feed' %}">
-  </body>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel='stylesheet' href="{% static 'main.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel='stylesheet' type='text/css'>
+</head>
+<body>
+    
+    <div id="main">
+
+        <div id="header">
+            <img src="{% static 'main.png' %}" alt='혼팅포차'/>
+        </div>
+
+        <div id="article">
+            <table>
+                <tr id='me'>
+                    <td rowspan="2"><img class='large' src="{% url 'camera_feed' %}" alt='내 화상 캠'/></td>
+                    <td><img class='small' src='{% static 'wait.png' %}' alt='입장 대기중'/></td>
+                </tr>
+                <tr>
+                    <td><img class='small' src='{% url 'webcam_feed' %}' alt='입장 대기중'/></td>
+                </tr>
+              </table>
+            <!-- <div id="webcam_container">
+                <div>
+                    <img src='./wait_large.png' alt='내 화상 캠'/>
+                </div>
+
+                <div>
+                    <div>
+                        <img src='wait.png' alt='입장 대기중'/>
+                    </div>
+                    <div>
+                        <img src='wait.png' alt='입장 대기중'/>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <a href={% url 'poker_start' %}>인디언포커</a>
+        <a href={% url 'poker_open' %}>본인 카드공개</a>
+
+    </div>
+</body>
 </html>
