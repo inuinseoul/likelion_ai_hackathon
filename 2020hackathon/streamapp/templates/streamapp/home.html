@@ -22,10 +22,10 @@
             <table>
                 <tr id='me'>
                     <td rowspan="2"><img class='large' src="{% url 'camera_feed' %}" alt='내 화상 캠'/></td>
-                    <td><img class='small' src='{% static 'wait.png' %}' alt='입장 대기중'/></td>
+                    <td><img class='small' src="{% url 'han_camera_feed' %}" alt='입장 대기중'/></td>
                 </tr>
                 <tr>
-                    <td><img class='small' src='{% url 'webcam_feed' %}' alt='입장 대기중'/></td>
+                    <td><img class='small' src="{% url 'webcam_feed' %}" alt='입장 대기중'/></td>
                 </tr>
               </table>
             <!-- <div id="webcam_container">
@@ -45,7 +45,7 @@
         </div>
         <a href={% url 'poker_start' %}>인디언포커</a>
         <a href={% url 'poker_open' %}>본인 카드공개</a>
-
+        <a href={% url 'han_onoff' %}>한가인 끄기</a>
     </div>
 </body>
 </html>

@@ -11,6 +11,63 @@ modelPath = os.path.join(os.getcwd(), "models", "keras_model.h5")
 myNet = load_model(modelPath)
 
 
+class han_ClassifyMove(object):
+    def __init__(self):
+        pass
+
+    def __del__(self):
+        cv2.destroyAllWindows()
+
+    def get_frame(self):
+        label = Test.objects.get(pk=12).state
+        imgPath = f"C:/img/han/wait.png"
+        frame = cv2.imread(imgPath)
+        frame = cv2.resize(frame, (800, 600))
+        if Test.objects.get(pk=13).state:
+            if label == 1:
+                state = Test.objects.get(pk=8).state
+                Test.objects.filter(pk=8).update(
+                    state=((int(state) + 1) % 450),
+                )
+                number = int((int(state) + 1) / 3) % 150
+                imgPath = f"C:/img/han/han_basic ({number}).png"
+                imgMustache = cv2.imread(imgPath)
+                frame = cv2.resize(imgMustache, (800, 600))
+            elif label == 2:
+                state = Test.objects.get(pk=9).state
+                Test.objects.filter(pk=9).update(
+                    state=((int(state) + 1) % 66),
+                )
+                number = int((int(state) + 1) / 3) % 22
+                imgPath = f"C:/img/han/han_cheers ({number}).png"
+                imgMustache = cv2.imread(imgPath)
+                frame = cv2.resize(imgMustache, (800, 600))
+            elif label == 3:
+                state = Test.objects.get(pk=10).state
+                Test.objects.filter(pk=10).update(
+                    state=((int(state) + 1) % 84),
+                )
+                number = int((int(state) + 1) / 3) % 28
+                imgPath = f"C:/img/han/han_drink ({number}).png"
+                imgMustache = cv2.imread(imgPath)
+                frame = cv2.resize(imgMustache, (800, 600))
+            elif label == 4:
+                state = Test.objects.get(pk=11).state
+                Test.objects.filter(pk=11).update(
+                    state=((int(state) + 1) % 51),
+                )
+                number = int((int(state) + 1) / 3) % 17
+                imgPath = f"C:/img/han/han_heart ({number}).png"
+                imgMustache = cv2.imread(imgPath)
+                frame = cv2.resize(imgMustache, (800, 600))
+
+        # 결과 반환
+        ret, jpeg = cv2.imencode(".jpg", frame)
+
+        # 최종 리턴
+        return jpeg.tobytes()
+
+
 class IPWebCam(object):
     def __init__(self):
         self.url = "http://192.168.35.193:8080/shot.jpg"
@@ -97,6 +154,9 @@ class ClassifyMove(object):
             Test.objects.filter(pk=1).update(
                 state=0,
             )
+            Test.objects.filter(pk=12).update(
+                state=1,
+            )
         elif label == "cheers":
             state = Test.objects.get(pk=2).state
             Test.objects.filter(pk=2).update(
@@ -106,6 +166,9 @@ class ClassifyMove(object):
             imgMustache = cv2.imread(imgPath)
             img2_resized = cv2.resize(imgMustache, (800, 600))
             frame = cv2.bitwise_and(img2_resized, frame)
+            Test.objects.filter(pk=12).update(
+                state=2,
+            )
         elif label == "drink":
             state = Test.objects.get(pk=3).state
             Test.objects.filter(pk=3).update(
@@ -115,6 +178,9 @@ class ClassifyMove(object):
             imgMustache = cv2.imread(imgPath)
             img2_resized = cv2.resize(imgMustache, (800, 600))
             frame = cv2.bitwise_and(img2_resized, frame)
+            Test.objects.filter(pk=12).update(
+                state=3,
+            )
         elif label == "heart":
             state = Test.objects.get(pk=4).state
             Test.objects.filter(pk=4).update(
@@ -124,6 +190,9 @@ class ClassifyMove(object):
             imgMustache = cv2.imread(imgPath)
             img2_resized = cv2.resize(imgMustache, (800, 600))
             frame = cv2.bitwise_and(img2_resized, frame)
+            Test.objects.filter(pk=12).update(
+                state=4,
+            )
 
         # 최종 라벨 결정
         label = "{}: {:.2f}%".format(label, max(basic, cheers, drink, heart) * 100)
