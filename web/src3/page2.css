@@ -1,0 +1,138 @@
+* {
+    font-family: "Noto Sans KR", sans-serif !important;
+}
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#main {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#header {
+    height: 100%;
+    background-color: #303030;
+}
+#header > img {
+    height: 100%;
+}
+
+#article {
+    height: 100%;
+    width: 100%;
+
+    background-color: #303030;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#drink {
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#drink > form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#drink > form > input {
+    width: 400px;
+    height: 40px;
+    background-color: #404040;
+    border: transparent;
+}
+#drink > form > input::placeholder {
+    font-size: 25px;
+    color: white;
+}
+#drink > form > button {
+    width: 150px;
+    height: 50px;
+
+    font-size: 20px;
+    color: white;
+    background-color: #442929;
+
+    border: 1px solid white;
+}
+#drink > form > button > img {
+    height: 100%
+}
+
+
+#res_a {
+    width: 90%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#res_a > div {
+    width: 150px;
+    height: 220px;
+    background-color: white;
+    margin-left: 30px;
+}
+#res_a > div > a {
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+#res_a > div > a > p { line-height: 30%; }
+#res_a > div > a > p:last-child { color: royalblue; }
+#res_a > div > a:hover { text-decoration: none; }
+#res_a > div > a:visited { text-decoration: none; }
+#res_a > div > a:link { text-decoration: none; }
+
+#res_a > div > a > img {
+    width: 150px;
+    height: 150px;
+}
+
+
+#res_b {
+    width: 90%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#res_b > div {
+    width: 150px;
+    height: 260px;
+    background-color: white;
+    margin-left: 30px;
+}
+#res_b > div > p {
+    color: gray;
+    line-height: 30%;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+}
+#res_b > div > img {
+    width: 150px;
+    height: 150px;
+}
