@@ -1,0 +1,64 @@
+* {
+    font-family: "Noto Sans KR", sans-serif !important;
+}
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+
+#main {
+    width: 100%;
+    height: 100%;
+}
+
+
+#header {
+    width: 100%;
+    background-color: #303030;
+}
+#header > img {
+    width: 100%;
+}
+
+
+#article {
+    width: 100%;
+
+    margin: 0px;
+    background-color: #303030;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+#webcam_container {
+    width: 90%;
+    
+    margin-top: 15%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+/* #webcam_container > div:nth-child(1) > img {
+    width: 800px;
+
+    margin-right: 5px;
+}
+#webcam_container > div:nth-child(n+2) > div > img {
+    width: 400px;
+} */
+
+.large {
+    width: 800px;
+}
+.small {
+    width: 400px;
+}
