@@ -5,12 +5,14 @@ from imutils.video import VideoStream
 import imutils
 import cv2, os
 import numpy as np
+from .models import Test
+import random
 
 modelPath = os.path.join(os.getcwd(), "models", "keras_model.h5")
 myNet = load_model(modelPath)
 
 
-class MaskDetect(object):
+class ClassifyMove(object):
     def __init__(self):
         self.vs = VideoStream(src=0).start()
 
@@ -40,19 +42,56 @@ class MaskDetect(object):
     def get_frame(self):
         # 카메라로부터 프레임 불러와서 전처리
         frame = self.vs.read()
-        frame = imutils.resize(frame, width=650)
+        frame = cv2.resize(frame, (800, 600))
         frame = cv2.flip(frame, 1)
 
         # classify_image 함수를 통해 preds 불러오고 각 값 반환
         preds = self.classify_image(frame, myNet)
-        (basic, thumbsup) = preds
+        (basic, cheers, drink, heart) = preds
+        preds = list(preds)
+        labels = ["basic", "cheers", "drink", "heart"]
 
         # 결과에 따라 label, color 설정
-        label = "basic" if basic > thumbsup else "thumbsup"
-        color = (0, 255, 0) if label == "basic" else (0, 0, 255)
+        max_index = np.argmax(np.array(preds))
+        label = labels[max_index]
+        if preds[max_index] < 0.9:
+            label = "basic"
+        color = (0, 255, 0)
+
+        if label == "basic":
+            Test.objects.filter(pk=1).update(
+                state=0,
+            )
+        elif label == "cheers":
+            state = Test.objects.get(pk=2).state
+            Test.objects.filter(pk=2).update(
+                state=((int(state) + 1) % 70),
+            )
+            imgPath = f"C:/img/heart ({(int(state)+1) % 70}).png"
+            imgMustache = cv2.imread(imgPath)
+            img2_resized = cv2.resize(imgMustache, (800, 600))
+            frame = cv2.bitwise_and(img2_resized, frame)
+        elif label == "drink":
+            state = Test.objects.get(pk=3).state
+            Test.objects.filter(pk=3).update(
+                state=((int(state) + 1) % 70),
+            )
+            imgPath = f"C:/img/heart ({(int(state)+1) % 70}).png"
+            imgMustache = cv2.imread(imgPath)
+            img2_resized = cv2.resize(imgMustache, (800, 600))
+            frame = cv2.bitwise_and(img2_resized, frame)
+        elif label == "heart":
+            state = Test.objects.get(pk=4).state
+            Test.objects.filter(pk=4).update(
+                state=((int(state) + 1) % 70),
+            )
+            imgPath = f"C:/img/heart ({(int(state)+1) % 70}).png"
+            imgMustache = cv2.imread(imgPath)
+            img2_resized = cv2.resize(imgMustache, (800, 600))
+            frame = cv2.bitwise_and(img2_resized, frame)
 
         # 최종 라벨 결정
-        label = "{}: {:.2f}%".format(label, max(basic, thumbsup) * 100)
+        label = "{}: {:.2f}%".format(label, max(basic, cheers, drink, heart) * 100)
 
         # 웹캠 위에 텍스트(label) 출력되도록 설정
         cv2.putText(frame, label, (0, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)

@@ -1,11 +1,25 @@
 from django.shortcuts import render
 from django.http.response import StreamingHttpResponse
-from streamapp.camera import MaskDetect
+from streamapp.camera import ClassifyMove
+from .models import Test
 
 # Create your views here.
 
 
 def index(request):
+    if not (Test.objects.filter(pk=1)):
+        Test.objects.create(
+            state=0,
+        )
+        Test.objects.create(
+            state=0,
+        )
+        Test.objects.create(
+            state=0,
+        )
+        Test.objects.create(
+            state=0,
+        )
     return render(request, "streamapp/home.html")
 
 
@@ -15,7 +29,7 @@ def gen(camera):
         yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n\r\n")
 
 
-def mask_feed(request):
+def camera_feed(request):
     return StreamingHttpResponse(
-        gen(MaskDetect()), content_type="multipart/x-mixed-replace; boundary=frame"
+        gen(ClassifyMove()), content_type="multipart/x-mixed-replace; boundary=frame"
     )

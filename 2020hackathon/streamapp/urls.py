@@ -4,5 +4,5 @@ from streamapp import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("mask_feed", views.mask_feed, name="mask_feed"),
+    path("camera_feed", views.camera_feed, name="camera_feed"),
 ]
