@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Test, Cook
+from .models import Test,Cook, Alcohol
 
 # Register your models here.
 admin.site.register(Test)
 admin.site.register(Cook)
+admin.site.register(Alcohol)

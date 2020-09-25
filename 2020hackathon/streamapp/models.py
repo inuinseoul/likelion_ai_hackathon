@@ -12,3 +12,11 @@ class Cook(models.Model):
     material = models.TextField()
     cooking_time = models.TextField()
     scrap = models.TextField()
+
+class Alcohol(models.Model) :
+    nation = models.TextField()
+    name = models.TextField()
+    alcohol_type = models.TextField()
+    tag = models.TextField()
+    alcohol = models.TextField()
+    

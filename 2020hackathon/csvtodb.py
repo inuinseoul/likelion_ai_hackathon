@@ -2,7 +2,6 @@ import csv
 import os
 import django
 import sys
-from streamapp.models import Cook
 
 os.chdir('.')
 print("Current dir=", end=""), print(os.getcwd())
@@ -11,26 +10,31 @@ print("BASE_DIR=", end=""), print(BASE_DIR)
 
 sys.path.append(BASE_DIR)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "video_stream.settings")	
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "video_stream.settings")	# 1. 여기서 프로젝트명.settings입력
 django.setup()
 
-#경로 설정해주셔야합니다!
-CSV_PATH = r'C:\Users\LHS\Desktop\2_git_team\2020hackathon\streamapp\cook.csv'	
+# 위의 과정까지가 python manage.py shell을 키는 것과 비슷한 효과
+###########################################################################################
+
+
+CSV_PATH = 'streamapp/beer_alcohol.csv'	# 3. csv 파일 경로
+
+from streamapp.models import Alcohol	# 2. App이름.models
 
 bulk_list = []
-with open(CSV_PATH, encoding='UTF-8') as csvfile:
+with open(CSV_PATH, encoding='UTF-8') as csvfile:	# 4. newline =''
     data_reader = csv.reader(csvfile)
     next(data_reader, None)
     for row in data_reader:
-        bulk_list.append(Cook(		
-            link = row[0],
-            food = row[1],
-            img = row[2],
+        bulk_list.append(Alcohol(		# 5. class명.objects.create
+            nation = row[0],
+            name = row[1],
+            alcohol_type = row[2],
             tag = row[3],
-            material = row[4],
-            cooking_time = row[5],
-            scrap = row[6],
+            alcohol = row[4],
         ))
 
-Cook.objects.bulk_create(bulk_list)
+Alcohol.objects.bulk_create(bulk_list)
 
+
+print('Okay')

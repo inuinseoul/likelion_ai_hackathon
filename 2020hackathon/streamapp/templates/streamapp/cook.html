@@ -1,12 +1,16 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel='stylesheet' href='{% static 'page2.css' %}' />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div>추천음식</div>
+    {% comment %} <div>추천음식</div>
     {%for i in food%}
         {{i}}
     {%endfor%}
@@ -17,14 +21,55 @@
     <div>추천음식링크</div>
     {%for i in link%}
         {{i}}
-    {%endfor%}
-    
-    <form action="{% url 'cook'%}" method="POST">
-        {% csrf_token %}
-        <input type='text' placeholder='안주를 입력해주세요' name='input_cook'/>
-        <br/>
-        <button type='submit'>확인</button>
-    </form>
-    
+    {%endfor%} {% endcomment %}
+    <div id="main">
+
+        <div id="header">
+            <img src="{% static 'main3.png' %}" alt='혼팅포차'/>
+        </div>
+
+        <div id="article">
+             
+            <div id="drink">
+                <form action="{% url 'alcohol_recommend' %}" method="POST">
+                {% csrf_token %}
+                    <input type='text' placeholder="술을 입력하세요" name='input_beer'/> 
+                    <button type="submit">술 추천</button>
+                </form>
+                <form action="{% url 'cook' %}" method="POST">
+                {% csrf_token %}
+                    <input type='text' placeholder="안주를 입력하세요" name='input_cook'/> 
+                    <button type="submit">안주 추천</button>
+                </form>
+            </div>
+
+            {% if lst %}
+            <div id="res_a">
+            {% for result in lst %}    
+                <div>
+                    <a href='{{result.link}}'>
+                        <img src='{{result.img}}'/>
+                        <p>{{ result.food }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if result_list %}
+            <div id="res_b">
+            {% for result in result_list %}    
+                <div>
+                    <img src='https://png.pngtree.com/png-vector/20190219/ourlarge/pngtree-vector-wine-icon-png-image_559420.jpg'/>
+                    <p>{{result.name}}</p>
+                    <p>{{result.nation}}</p>
+                    <p>{{result.alcohol_type}}</p>
+                    <p>{{result.alcohol}}</p>
+                </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>  
 </body>
 </html>

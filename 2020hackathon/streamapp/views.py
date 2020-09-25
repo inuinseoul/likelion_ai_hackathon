@@ -5,11 +5,11 @@ from django.http.response import StreamingHttpResponse
 from streamapp.camera import ClassifyMove, IPWebCam, han_ClassifyMove
 from .models import Test
 import random
-from .models import Cook
 import numpy as np
 import re
 import pandas as pd
 import csv
+from .models import Alcohol, Cook
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -171,15 +171,73 @@ def cook(request):
 
         similar_cook_index = similar_cook.reshape(-1)
         lst = []
-        
+        links = data.iloc[similar_cook_index,1].values.tolist()
+        foods = data.iloc[similar_cook_index,2].values.tolist()
+        imgs = data.iloc[similar_cook_index,3].values.tolist()
+        for i in range(5):
+            lst.append(
+                {
+                    "link": links[i],
+                    "food": foods[i],
+                    "img": imgs[i],
+                }
+            )
 
         context = {
-            'link' : data.iloc[similar_cook_index,1],#링크
-            'food' : data.iloc[similar_cook_index,2],#음식
-            'img' : data.iloc[similar_cook_index,3],#음식 이미지
+            "lst" : lst
         }
 
         return render(request,'streamapp/cook.html',context)
 
     return render(request, 'streamapp/cook.html')
 
+def alcohol_recommend(request):
+    if request.method == "POST": 
+        beer = Alcohol.objects.all()
+        df0 = read_frame(beer)
+
+        beer = df0.loc[
+            :,
+                ["nation",
+                "name",
+                "alcohol_type",
+                "tag",
+                "alcohol",
+            ],
+        ]
+
+        beer['tag'] = beer['tag'].str.replace(',',' ')
+
+        tfidf_vec = TfidfVectorizer(ngram_range=(1, 3))
+        tfidf_matrix = tfidf_vec.fit_transform(beer['tag'])
+
+        genres_similarity = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
+        similar_index = np.argsort(-genres_similarity)
+
+        input_beer = request.POST['input_beer']
+
+        beer_index = beer[beer['name']==input_beer].index.values
+        similar_beer = similar_index[beer_index, :5]
+
+        similar_beer_index = similar_beer.reshape(-1)
+        top5 = pd.DataFrame(beer.iloc[similar_beer_index])
+        top5.reset_index(drop=True, inplace=True)
+        result_list = [] 
+
+        for i in range(5):
+            result_list.append(
+                {
+                    "nation": top5["nation"][i],
+                    "name": top5["name"][i],
+                    "alcohol_type": top5["alcohol_type"][i],
+                    "tag": top5["tag"][i],
+                    "alcohol": top5["alcohol"][i],
+                }
+            )
+        
+
+        context = {"result_list":result_list}
+
+        return render(request, "streamapp/cook.html", context)  
+    return render(request, 'streamapp/cook.html')
