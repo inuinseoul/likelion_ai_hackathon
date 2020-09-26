@@ -1,6 +1,6 @@
 # 혼팅포차
 
-![1](https://github.com/inuinseoul/likelion_ai_hackathon/blob/master/web/resource/template_design/header.png?raw=true)
+![1](https://github.com/inuinseoul/likelion_ai_hackathon/blob/master/web/resource/template_design/header.png)
 
 - 혼팅포차는 언택트 술자리 웹서비스입니다.
 - 2020 인공지능 사관학교 해커톤 작품
