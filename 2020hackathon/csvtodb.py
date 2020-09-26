@@ -15,7 +15,7 @@ django.setup()
 
 # 위의 과정까지가 python manage.py shell을 키는 것과 비슷한 효과
 ###########################################################################################
-
+#######beer db
 
 CSV_PATH = 'streamapp/beer_alcohol.csv'	# 3. csv 파일 경로
 
@@ -35,6 +35,29 @@ with open(CSV_PATH, encoding='UTF-8') as csvfile:	# 4. newline =''
         ))
 
 Alcohol.objects.bulk_create(bulk_list)
+
+########cook db
+CSV_PATH = 'streamapp/cook.csv'	# 3. csv 파일 경로
+
+from streamapp.models import Cook	# 2. App이름.models
+
+bulk_list = []
+with open(CSV_PATH, encoding='UTF-8') as csvfile:	# 4. newline =''
+    data_reader = csv.reader(csvfile)
+    next(data_reader, None)
+    for row in data_reader:
+        bulk_list.append(Cook(		# 5. class명.objects.create
+            link = row[0],
+            food = row[1],
+            img = row[2],
+            tag = row[3],
+            material = row[4],
+            cooking_time = row[5],
+            scrap = row[6],
+
+        ))
+
+Cook.objects.bulk_create(bulk_list)
 
 
 print('Okay')
