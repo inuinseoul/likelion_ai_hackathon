@@ -8,7 +8,7 @@
 
 ---
 
-![2](https://user-images.githubusercontent.com/70463738/94228941-1a702f80-ff39-11ea-8dd9-4e312cb2e650.jpg)
+![2](https://github.com/inuinseoul/likelion_ai_hackathon/blob/master/web/%23template/article_webcam.png?raw=true)
 
 - 혼자는 물론 누군가와 함께, 더 나아가서 여러사람이 술자리를 가질 수 있는 웹서비스를 목표로 하고 있습니다.
 
