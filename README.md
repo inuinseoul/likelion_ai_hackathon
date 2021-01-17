@@ -11,7 +11,7 @@
 - django
 - Google Teachable Machine
 
----
+# 서비스 안내
 
 ![2](https://github.com/inuinseoul/likelion_ai_hackathon/blob/master/web/%23template/article_webcam.png?raw=true)
 
@@ -19,7 +19,7 @@
 
 ---
 
-# 서비스 안내
+
 
 ![6](https://user-images.githubusercontent.com/70463738/94228953-20fea700-ff39-11ea-8267-eb15995dc696.PNG)
 ![7](https://user-images.githubusercontent.com/70463738/94228957-22c86a80-ff39-11ea-8caa-3347ffcdd15f.PNG)
